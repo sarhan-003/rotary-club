@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import { Heart, ShieldCheck, DollarSign, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const Donation: React.FC = () => {
-  const [amount, setAmount] = useState('50');
+  const [amount, setAmount] = useState('1000');
 
-  const presets = ['25', '50', '100', '250', '500'];
+  const presets = ['500', '1000', '2500', '5000', '10000'];
 
   return (
     <div className="pt-24 pb-20 bg-slate-50">
@@ -27,10 +27,10 @@ const Donation: React.FC = () => {
 
               <div className="space-y-4">
                 {[
-                  'Secure, encrypted transactions',
+                  'Secure, encrypted transactions (Razorpay)',
                   '100% of proceeds go to the selected cause',
-                  'Tax-deductible donation receipts provided',
-                  'Annual impact reports shared with donors'
+                  'Tax-deductible receipts (Section 80G) provided',
+                  'Impact reports for every Indian district'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center space-x-3">
                     <CheckCircle2 className="w-5 h-5 text-green-500" />
@@ -72,11 +72,11 @@ const Donation: React.FC = () => {
                         : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
                     }`}
                   >
-                    ${val}
+                    ₹{val}
                   </button>
                 ))}
                 <div className="relative col-span-3 mt-2">
-                  <DollarSign className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₹</span>
                   <input
                     type="number"
                     value={amount}
@@ -101,7 +101,7 @@ const Donation: React.FC = () => {
               </button>
 
               <p className="text-center text-slate-400 text-xs mt-8 font-medium">
-                Payments secured by Stripe. By donating, you agree to our <a href="#" className="underline">Terms of Service</a>.
+                Payments secured by Razorpay. By donating, you agree to our <a href="#" className="underline">Terms of Service</a>.
               </p>
             </motion.div>
           </div>

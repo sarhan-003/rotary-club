@@ -65,7 +65,7 @@ const Financials: React.FC = () => {
           <div className="bg-rotary-blue p-8 rounded-[2rem] text-white relative overflow-hidden shadow-2xl">
             <div className="relative z-10">
               <p className="text-blue-100 text-sm font-semibold uppercase tracking-wider mb-2">Net Balance</p>
-              <h2 className="text-4xl font-bold mb-6">$85,240.00</h2>
+              <h2 className="text-4xl font-bold mb-6">₹8,52,400.00</h2>
               <div className="flex items-center space-x-2 text-xs font-bold bg-white/10 w-fit px-3 py-1 rounded-full border border-white/10">
                 <TrendingUp className="w-3 h-3 text-green-400" />
                 <span>+15% from last month</span>
@@ -82,7 +82,7 @@ const Financials: React.FC = () => {
               </div>
               <span className="text-xs font-bold text-slate-400">Total Revenue</span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900">$124,500</h2>
+            <h2 className="text-3xl font-bold text-slate-900">₹12,45,000</h2>
             <p className="text-sm text-slate-500 mt-2">from 15 active campaigns</p>
           </div>
 
@@ -93,7 +93,7 @@ const Financials: React.FC = () => {
               </div>
               <span className="text-xs font-bold text-slate-400">Total Expenses</span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900">$39,260</h2>
+            <h2 className="text-3xl font-bold text-slate-900">₹3,92,600</h2>
             <p className="text-sm text-slate-500 mt-2">across 8 events this month</p>
           </div>
         </div>
@@ -172,7 +172,7 @@ const Financials: React.FC = () => {
                     </td>
                     <td className="px-8 py-5">
                       <span className={cn("font-bold", tx.type === 'revenue' ? "text-green-600" : "text-slate-900")}>
-                        {tx.type === 'revenue' ? '+' : '-'}${tx.amount.toLocaleString()}
+                        {tx.type === 'revenue' ? '+' : '-'}₹{tx.amount.toLocaleString('en-IN')}
                       </span>
                     </td>
                     <td className="px-8 py-5">

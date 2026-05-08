@@ -63,15 +63,15 @@ const Footer: React.FC = () => {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-rotary-blue shrink-0" />
-                <span>123 Rotary Ave, NGO District, New York, NY 10001</span>
+                <span>Rotary Bhawan, District 3210, Nariman Point, Mumbai, Maharashtra 400021</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-rotary-blue shrink-0" />
-                <span>+1 (212) 555-0123</span>
+                <span>+91 (22) 2282 1234</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-rotary-blue shrink-0" />
-                <span>contact@rotaryclub.org</span>
+                <span>office@rotaryindia.org</span>
               </li>
             </ul>
           </div>

@@ -37,17 +37,17 @@ const COLORS = ['#0050A1', '#F7A81B', '#0190D4', '#002D5D'];
 
 const Dashboard: React.FC = () => {
   const stats = [
-    { title: 'Total Revenue', value: '$124,500', change: '+12.5%', isUp: true, icon: DollarSign, color: 'bg-blue-50 text-blue-600' },
-    { title: 'Total Expenses', value: '$45,200', change: '-2.4%', isUp: false, icon: TrendingDown, color: 'bg-red-50 text-red-600' },
+    { title: 'Total Revenue', value: '₹12,45,000', change: '+12.5%', isUp: true, icon: DollarSign, color: 'bg-blue-50 text-blue-600' },
+    { title: 'Total Expenses', value: '₹4,52,000', change: '-2.4%', isUp: false, icon: TrendingDown, color: 'bg-red-50 text-red-600' },
     { title: 'New Volunteers', value: '148', change: '+24.1%', isUp: true, icon: Users, color: 'bg-green-50 text-green-600' },
     { title: 'Upcoming Events', value: '12', change: 'This Month', isUp: true, icon: Calendar, color: 'bg-orange-50 text-orange-600' },
   ];
 
   const recentTransactions = [
-    { id: 1, name: 'Annual Gala Sponsorship', category: 'Revenue', amount: '+$15,000', date: '2 hours ago', status: 'Completed' },
-    { id: 2, name: 'Medical Camp Supplies', category: 'Expense', amount: '-$2,400', date: '5 hours ago', status: 'Pending' },
-    { id: 3, name: 'Education Fund Donation', category: 'Revenue', amount: '+$500', date: 'Yesterday', status: 'Completed' },
-    { id: 4, name: 'Community Center Rent', category: 'Expense', amount: '-$1,200', date: 'Yesterday', status: 'Completed' },
+    { id: 1, name: 'Annual Gala Sponsorship', category: 'Revenue', amount: '+₹1,50,000', date: '2 hours ago', status: 'Completed' },
+    { id: 2, name: 'Medical Camp Supplies', category: 'Expense', amount: '-₹24,000', date: '5 hours ago', status: 'Pending' },
+    { id: 3, name: 'Education Fund Donation', category: 'Revenue', amount: '+₹5,000', date: 'Yesterday', status: 'Completed' },
+    { id: 4, name: 'Community Center Rent', category: 'Expense', amount: '-₹12,000', date: 'Yesterday', status: 'Completed' },
   ];
 
   return (
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
                 </PieChart>
               </ResponsiveContainer>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <span className="text-2xl font-bold">$45.2K</span>
+                <span className="text-2xl font-bold">₹4.5L</span>
                 <span className="text-[10px] text-slate-400 font-bold uppercase">Total Spend</span>
               </div>
             </div>
