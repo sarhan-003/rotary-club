@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const stats = [
-    { label: 'Global Members', value: '1.4M+', icon: Users, color: 'text-blue-600' },
-    { label: 'Active Projects', value: '46K+', icon: Globe, color: 'text-green-600' },
-    { label: 'Donations Raised', value: '$2.1B', icon: Heart, color: 'text-red-600' },
-    { label: 'Awards Won', value: '150+', icon: Award, color: 'text-yellow-600' },
+    { label: 'Members in India', value: '1.5L+', icon: Users, color: 'text-blue-600' },
+    { label: 'Active Projects', value: '12K+', icon: Globe, color: 'text-green-600' },
+    { label: 'Donations Raised', value: '₹500Cr+', icon: Heart, color: 'text-red-600' },
+    { label: 'District Clubs', value: '3,500+', icon: Award, color: 'text-yellow-600' },
   ];
 
   const campaigns = [
@@ -17,21 +17,21 @@ const Home: React.FC = () => {
       description: 'Our top priority is the eradication of polio worldwide. We are 99% of the way there.',
       image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=800',
       raised: 85,
-      goal: '$10M',
+      goal: '₹50 Lakhs',
     },
     {
-      title: 'Clean Water Initiative',
-      description: 'Providing sustainable clean water and sanitation systems to developing communities.',
+      title: 'Clean Water for Rural Schools',
+      description: 'Installing RO water systems in government schools across rural India.',
       image: 'https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&q=80&w=800',
       raised: 62,
-      goal: '$5M',
+      goal: '₹25 Lakhs',
     },
     {
-      title: 'Education for All',
-      description: 'Building schools and providing supplies to ensure every child has access to quality education.',
+      title: 'Literacy Mission 2026',
+      description: 'Providing tablet-based learning kits to children in urban slums and remote villages.',
       image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800',
       raised: 45,
-      goal: '$3M',
+      goal: '₹15 Lakhs',
     },
   ];
 
@@ -56,13 +56,13 @@ const Home: React.FC = () => {
             className="max-w-2xl text-white"
           >
             <span className="inline-block px-4 py-1 bg-rotary-gold rounded-full text-xs font-bold tracking-widest uppercase mb-6">
-              Official Rotary International Member
+              Rotary Club of India - District 3210
             </span>
             <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight mb-6">
               Service Above <span className="text-rotary-gold">Self</span>
             </h1>
             <p className="text-xl text-slate-200 mb-10 leading-relaxed">
-              Join a global network of volunteers dedicated to solving some of the world's most pressing challenges. From fighting disease to supporting local communities.
+              Join the largest network of volunteers in India dedicated to solving local and national challenges. From rural literacy to health missions.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
               <Link to="/donate" className="btn-secondary text-center text-lg px-8 py-4">
