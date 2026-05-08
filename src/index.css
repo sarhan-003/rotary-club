@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rotary-blue: #0050A1;
+  --color-rotary-gold: #F7A81B;
+  --color-rotary-azure: #0190D4;
+  --color-rotary-royal: #002D5D;
+  
+  --font-sans: "Inter", "system-ui", "-apple-system", "sans-serif";
+  --font-display: "Outfit", "sans-serif";
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased selection:bg-rotary-blue/20;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  .glass-dark {
+    @apply bg-slate-900/70 backdrop-blur-md border border-slate-700/30 shadow-xl;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-rotary-blue text-white rounded-xl font-semibold transition-all hover:bg-rotary-royal hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-rotary-gold text-white rounded-xl font-semibold transition-all hover:brightness-110 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-rotary-blue text-rotary-blue rounded-xl font-semibold transition-all hover:bg-rotary-blue hover:text-white;
+  }
+
+  .card-premium {
+    @apply p-6 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-xl hover:border-rotary-blue/10;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400;
+}
