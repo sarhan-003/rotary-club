@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, ShieldCheck, DollarSign, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Heart, ShieldCheck, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const Donation: React.FC = () => {
   const [amount, setAmount] = useState('1000');
