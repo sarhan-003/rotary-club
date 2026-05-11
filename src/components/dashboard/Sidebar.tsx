@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Calendar, 
@@ -12,9 +12,12 @@ import {
   FileText
 } from 'lucide-react';
 import { cn } from '../../utils/cn';
+import { useAuth } from '../../context/AuthContext';
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout, user } = useAuth();
 
   const menuItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
@@ -25,6 +28,11 @@ const Sidebar: React.FC = () => {
     { name: 'Reports', path: '/admin/reports', icon: FileText },
     { name: 'Settings', path: '/admin/settings', icon: Settings },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <aside className="w-64 h-screen sticky top-0 bg-slate-900 text-slate-400 border-r border-slate-800 flex flex-col">
@@ -71,14 +79,17 @@ const Sidebar: React.FC = () => {
       <div className="p-4 border-t border-slate-800 bg-slate-900/50">
         <div className="flex items-center space-x-3 mb-4 p-2 rounded-lg bg-slate-800/50 border border-slate-700/50">
           <div className="w-8 h-8 rounded-full bg-rotary-gold flex items-center justify-center font-bold text-slate-900 text-xs">
-            JD
+            {user?.name.split(' ').map(n => n[0]).join('') || 'JD'}
           </div>
           <div className="overflow-hidden">
-            <p className="text-xs font-bold text-white truncate">John Doe</p>
-            <p className="text-[10px] text-slate-500 truncate">Super Admin</p>
+            <p className="text-xs font-bold text-white truncate">{user?.name || 'John Doe'}</p>
+            <p className="text-[10px] text-slate-500 truncate">{user?.role || 'Super Admin'}</p>
           </div>
         </div>
-        <button className="flex items-center space-x-2 text-xs font-bold text-red-400 hover:text-red-300 transition-colors w-full p-2">
+        <button 
+          onClick={handleLogout}
+          className="flex items-center space-x-2 text-xs font-bold text-red-400 hover:text-red-300 transition-colors w-full p-2"
+        >
           <LogOut className="w-4 h-4" />
           <span>Sign Out</span>
         </button>
@@ -88,3 +99,4 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
+

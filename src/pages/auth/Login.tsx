@@ -1,8 +1,39 @@
-import React from 'react';
-import { Shield, Lock, Mail, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Shield, Lock, Mail, ArrowRight, Loader2 } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const from = location.state?.from?.pathname || "/admin";
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigate(from, { replace: true });
+      } else {
+        setError('Invalid email or password. Please try again.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100">
@@ -48,13 +79,22 @@ const Login: React.FC = () => {
             <p className="text-slate-500">Sign in to your administrative account</p>
           </div>
 
-          <form className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-sm font-bold rounded-2xl animate-shake">
+                {error}
+              </div>
+            )}
+            
             <div className="space-y-2">
               <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
               <div className="relative">
                 <Mail className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input 
                   type="email" 
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-rotary-blue/10 font-medium transition-all" 
                   placeholder="admin@rotary.org"
                 />
@@ -70,6 +110,9 @@ const Login: React.FC = () => {
                 <Lock className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input 
                   type="password" 
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-rotary-blue/10 font-medium transition-all" 
                   placeholder="••••••••"
                 />
@@ -81,13 +124,20 @@ const Login: React.FC = () => {
               <label htmlFor="remember" className="text-sm font-semibold text-slate-600 cursor-pointer">Keep me signed in for 30 days</label>
             </div>
 
-            <Link 
-              to="/admin" 
-              className="w-full btn-primary py-5 rounded-2xl text-lg flex items-center justify-center space-x-3 shadow-xl shadow-rotary-blue/20"
+            <button 
+              type="submit"
+              disabled={isLoading}
+              className="w-full btn-primary py-5 rounded-2xl text-lg flex items-center justify-center space-x-3 shadow-xl shadow-rotary-blue/20 disabled:opacity-70"
             >
-              <span>Sign In</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+              {isLoading ? (
+                <Loader2 className="w-6 h-6 animate-spin" />
+              ) : (
+                <>
+                  <span>Sign In</span>
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
+            </button>
           </form>
 
           <p className="mt-12 text-center text-slate-400 text-sm">
@@ -100,3 +150,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
