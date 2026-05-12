@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Mail, Award } from 'lucide-react';
+import { Mail, Award } from 'lucide-react';
+import { LinkedInIcon } from './Icons';
 
 // ─── Drop this component inside your existing About.tsx ───────────────────────
 // Import it at the top: import LeadershipSection from '../../components/ui/LeadershipSection';
@@ -134,7 +135,7 @@ const LeadershipSection: React.FC = () => {
                     <Mail className="w-3.5 h-3.5" /> Email
                   </a>
                   <button className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#0077B5] transition-colors px-3 py-2 rounded-lg bg-slate-50 hover:bg-blue-50">
-                    <ExternalLink className="w-3.5 h-3.5" /> LinkedIn
+                    <LinkedInIcon className="w-3.5 h-3.5" /> LinkedIn
                   </button>
                 </div>
               </div>
