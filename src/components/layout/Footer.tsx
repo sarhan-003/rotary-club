@@ -1,33 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Globe, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Heart, Globe, ExternalLink } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+
+  const quickLinks = [
+    { label: 'About Us', to: '/about' },
+    { label: 'Our Projects', to: '/projects' },
+    { label: 'Events', to: '/events' },
+    { label: 'Gallery', to: '/gallery' },
+    { label: 'Blog', to: '/blog' },
+    { label: 'Contact', to: '/contact' },
+  ];
+
+  const getInvolved = [
+    { label: 'Donate Now', to: '/donate' },
+    { label: 'Volunteer With Us', to: '/volunteer' },
+    { label: 'Become a Member', to: '/contact' },
+    { label: 'Corporate CSR', to: '/contact' },
+    { label: 'Admin Login', to: '/login' },
+  ];
+
+  const socialLinks = [
+    { label: 'Facebook',  href: 'https://facebook.com',  bg: 'hover:bg-blue-600' },
+    { label: 'Instagram', href: 'https://instagram.com', bg: 'hover:bg-pink-600' },
+    { label: 'LinkedIn',  href: 'https://linkedin.com',  bg: 'hover:bg-[#0077B5]' },
+    { label: 'Twitter',   href: 'https://twitter.com',   bg: 'hover:bg-slate-700' },
+    { label: 'YouTube',   href: 'https://youtube.com',   bg: 'hover:bg-red-600' },
+  ];
+
   return (
-    <footer className="bg-slate-900 text-slate-400 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <footer className="bg-slate-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
           {/* Brand */}
-          <div className="space-y-6">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-rotary-blue rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">R</span>
+          <div className="lg:col-span-1">
+            <Link to="/" className="flex items-center gap-3 mb-5">
+              <div className="w-10 h-10 rounded-full bg-rotary-gold flex items-center justify-center font-bold text-white text-lg">R</div>
+              <div>
+                <div className="font-bold text-white leading-tight">Rotary Club</div>
+                <div className="text-xs text-slate-400 leading-tight">District 3210 · Pimpri-Chinchwad</div>
               </div>
-              <h1 className="text-xl font-display font-bold text-white leading-tight">
-                ROTARY CLUB
-              </h1>
             </Link>
-            <p className="text-sm leading-relaxed">
-              We are a global network of 1.4 million neighbors, friends, leaders, and problem-solvers who see a world where people unite and take action to create lasting change.
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Service Above Self. Making a lasting difference in the lives of communities across Maharashtra since 1985.
             </p>
-            <div className="flex space-x-4">
-              {[Globe, Globe, Globe, Globe].map((Icon, i) => (
+
+            {/* Social links as text buttons */}
+            <div className="flex flex-wrap gap-2">
+              {socialLinks.map(s => (
                 <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center transition-colors hover:bg-rotary-blue hover:text-white"
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-3 py-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white text-xs font-bold transition-all ${s.bg} flex items-center gap-1`}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Globe className="w-3 h-3" />
+                  {s.label}
                 </a>
               ))}
             </div>
@@ -35,54 +67,75 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-bold mb-6">Quick Links</h3>
-            <ul className="space-y-4 text-sm">
-              <li><Link to="/about" className="hover:text-rotary-blue transition-colors">Our History</Link></li>
-              <li><Link to="/events" className="hover:text-rotary-blue transition-colors">Upcoming Events</Link></li>
-              <li><Link to="/donate" className="hover:text-rotary-blue transition-colors">Donation Campaigns</Link></li>
-              <li><Link to="/volunteer" className="hover:text-rotary-blue transition-colors">Become a Volunteer</Link></li>
-              <li><Link to="/blog" className="hover:text-rotary-blue transition-colors">Latest Stories</Link></li>
+            <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-5">Quick Links</h4>
+            <ul className="space-y-3">
+              {quickLinks.map(l => (
+                <li key={l.label}>
+                  <Link to={l.to} className="text-slate-400 hover:text-rotary-gold text-sm font-medium transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-rotary-gold opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Causes */}
+          {/* Get Involved */}
           <div>
-            <h3 className="text-white font-bold mb-6">Our Causes</h3>
-            <ul className="space-y-4 text-sm">
-              <li><a href="#" className="hover:text-rotary-blue transition-colors">Promoting Peace</a></li>
-              <li><a href="#" className="hover:text-rotary-blue transition-colors">Fighting Disease</a></li>
-              <li><a href="#" className="hover:text-rotary-blue transition-colors">Providing Clean Water</a></li>
-              <li><a href="#" className="hover:text-rotary-blue transition-colors">Supporting Education</a></li>
-              <li><a href="#" className="hover:text-rotary-blue transition-colors">Saving Mothers & Children</a></li>
+            <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-5">Get Involved</h4>
+            <ul className="space-y-3">
+              {getInvolved.map(l => (
+                <li key={l.label}>
+                  <Link to={l.to} className="text-slate-400 hover:text-rotary-gold text-sm font-medium transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-rotary-gold opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-bold mb-6">Contact Us</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-rotary-blue shrink-0" />
-                <span>Rotary Bhawan, District 3210, Nariman Point, Mumbai, Maharashtra 400021</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-rotary-blue shrink-0" />
-                <span>+91 (22) 2282 1234</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-rotary-blue shrink-0" />
-                <span>office@rotaryindia.org</span>
-              </li>
-            </ul>
+            <h4 className="font-bold text-white text-sm uppercase tracking-widest mb-5">Contact Info</h4>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-rotary-gold mt-0.5 shrink-0" />
+                <span className="text-slate-400 text-sm leading-relaxed">
+                  Rotary Bhavan, MG Road,<br />Pimpri-Chinchwad,<br />Pune — 411018, Maharashtra
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-rotary-gold shrink-0" />
+                <a href="tel:+919876543210" className="text-slate-400 hover:text-white text-sm transition-colors">+91 98765 43210</a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-rotary-gold shrink-0" />
+                <a href="mailto:info@rotaryclub.org" className="text-slate-400 hover:text-white text-sm transition-colors">info@rotaryclub.org</a>
+              </div>
+              <div className="flex items-center gap-3">
+                <ExternalLink className="w-4 h-4 text-rotary-gold shrink-0" />
+                <a href="https://www.rotary.org" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white text-sm transition-colors">www.rotary.org</a>
+              </div>
+            </div>
+
+            {/* 80G Badge */}
+            <div className="mt-6 p-4 bg-slate-800 rounded-2xl border border-slate-700">
+              <div className="text-xs font-bold text-rotary-gold uppercase tracking-wider mb-1">80G Tax Exemption</div>
+              <div className="text-xs text-slate-400">All donations eligible for tax deduction under Section 80G of the Income Tax Act, 1961.</div>
+            </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-xs">
-          <p>© 2026 Rotary Club NGO. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
-            <a href="#" className="hover:text-white">Cookie Policy</a>
+        {/* Divider */}
+        <div className="border-t border-slate-800 pt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-slate-500 text-sm text-center sm:text-left">
+              © {currentYear} Rotary Club of Pimpri-Chinchwad, District 3210. All rights reserved.
+            </p>
+            <p className="text-slate-600 text-xs flex items-center gap-1.5">
+              Made with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> for service
+            </p>
           </div>
         </div>
       </div>

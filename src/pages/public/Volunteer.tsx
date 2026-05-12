@@ -1,116 +1,198 @@
-import React from 'react';
+// ─── PATCH for your existing Volunteer.tsx ────────────────────────────────────
+//
+// The key fix: the submit button now shows a loading spinner and success screen.
+// Replace your existing handleSubmit and the bottom of the JSX with this pattern.
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, BookOpen, Globe, Heart, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Heart, Clock, Users, Award } from 'lucide-react';
 
 const Volunteer: React.FC = () => {
-  const benefits = [
-    { title: 'Personal Growth', desc: 'Develop leadership skills and gain professional experience.', icon: BookOpen },
-    { title: 'Global Network', desc: 'Connect with people from all over the world.', icon: Globe },
-    { title: 'Make an Impact', desc: 'Create lasting change in your local community.', icon: Heart },
-    { title: 'Recognition', desc: 'Earn certificates and badges for your contributions.', icon: Users },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({
+    firstName: '', lastName: '', email: '', phone: '',
+    occupation: '', skills: '', availability: '', motivation: '', experience: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    // TODO: Replace with your actual API call, e.g. fetch('/api/volunteer', { method: 'POST', body: JSON.stringify(form) })
+    await new Promise(r => setTimeout(r, 1600));
+    setLoading(false);
+    setSubmitted(true);
+  };
+
+  const isValid = form.firstName && form.lastName && form.email && form.phone && form.motivation;
+
+  if (submitted) {
+    return (
+      <div className="pt-24 min-h-screen flex items-center justify-center bg-slate-50 px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-lg w-full bg-white rounded-3xl border border-slate-100 shadow-xl p-10 text-center"
+        >
+          <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-12 h-12 text-green-500" />
+          </div>
+          <h2 className="text-3xl font-display font-bold text-slate-900 mb-3">
+            Application Received!
+          </h2>
+          <p className="text-slate-500 leading-relaxed mb-4">
+            Thank you, <strong>{form.firstName}</strong>! Your volunteer application has been submitted successfully.
+          </p>
+          <p className="text-slate-400 text-sm mb-8">
+            Our team will review your application and reach out to you at <strong>{form.email}</strong> within 3–5 working days.
+          </p>
+          <div className="grid grid-cols-3 gap-4 p-5 bg-slate-50 rounded-2xl mb-8">
+            <div className="text-center">
+              <Clock className="w-6 h-6 text-rotary-blue mx-auto mb-1" />
+              <div className="text-xs font-bold text-slate-600">Review Time</div>
+              <div className="text-xs text-slate-400">3–5 Days</div>
+            </div>
+            <div className="text-center border-x border-slate-200">
+              <Users className="w-6 h-6 text-rotary-gold mx-auto mb-1" />
+              <div className="text-xs font-bold text-slate-600">Team Size</div>
+              <div className="text-xs text-slate-400">480+ Members</div>
+            </div>
+            <div className="text-center">
+              <Award className="w-6 h-6 text-green-500 mx-auto mb-1" />
+              <div className="text-xs font-bold text-slate-600">Certificate</div>
+              <div className="text-xs text-slate-400">Provided</div>
+            </div>
+          </div>
+          <button
+            onClick={() => { setSubmitted(false); setForm({ firstName: '', lastName: '', email: '', phone: '', occupation: '', skills: '', availability: '', motivation: '', experience: '' }); }}
+            className="btn-outline w-full"
+          >
+            Submit Another Application
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24 pb-20">
-      <section className="py-20 bg-slate-900 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="flex-1">
-              <h1 className="text-4xl md:text-6xl font-display font-bold mb-6">Become a <br /><span className="text-rotary-gold">Person of Action</span></h1>
-              <p className="text-xl text-slate-300 leading-relaxed mb-10">
-                Join our volunteer network and help us solve the world's most pressing challenges. No matter your skills, there's a place for you in Rotary.
-              </p>
-              <div className="flex items-center space-x-8">
-                <div>
-                  <h3 className="text-3xl font-bold text-white">1.4M</h3>
-                  <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Volunteers</p>
-                </div>
-                <div className="h-10 w-[1px] bg-slate-800"></div>
-                <div>
-                  <h3 className="text-3xl font-bold text-white">200+</h3>
-                  <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Countries</p>
-                </div>
-              </div>
+      {/* Hero */}
+      <section className="py-16 bg-rotary-blue text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-white rounded-full" />
+        </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/20 text-sm font-bold mb-6">
+              <Heart className="w-4 h-4 text-rotary-gold fill-rotary-gold" />
+              Service Above Self
             </div>
-            <div className="flex-1 relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl relative z-10">
-                <img 
-                  src="https://images.unsplash.com/photo-1559027615-cd4428d6715f?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Volunteers at work"
-                  className="w-full aspect-[4/3] object-cover"
-                />
-              </div>
-              <div className="absolute -top-10 -right-10 w-64 h-64 bg-rotary-blue/20 rounded-full blur-3xl"></div>
-            </div>
-          </div>
+            <h1 className="text-4xl md:text-6xl font-display font-bold mb-4">Volunteer With Us</h1>
+            <p className="text-blue-100 text-xl max-w-2xl mx-auto">
+              Join 480+ volunteers making a real difference across Maharashtra. Your time and skills can change lives.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-xl transition-all"
-              >
-                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-rotary-blue shadow-sm mb-6">
-                  <benefit.icon className="w-7 h-7" />
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{benefit.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-slate-50">
+      {/* Form */}
+      <section className="py-16 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white p-12 rounded-[3rem] shadow-xl border border-slate-100">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-display font-bold text-slate-900 mb-4">Volunteer Application</h2>
-              <p className="text-slate-500">Tell us about yourself and how you want to contribute.</p>
-            </div>
+          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-8 md:p-10">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8">Volunteer Application Form</h2>
+            <div className="space-y-5">
 
-            <form className="space-y-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
-                  <input type="text" className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-rotary-blue/10 font-medium" placeholder="John Doe" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {[
+                  { label: 'First Name', name: 'firstName', placeholder: 'Rajesh', required: true },
+                  { label: 'Last Name',  name: 'lastName',  placeholder: 'Sharma',  required: true },
+                ].map(f => (
+                  <div key={f.name}>
+                    <label className="block text-sm font-bold text-slate-700 mb-2">{f.label} {f.required && '*'}</label>
+                    <input
+                      type="text" name={f.name} value={(form as any)[f.name]}
+                      onChange={handleChange} placeholder={f.placeholder}
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all"
+                    />
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Email Address *</label>
+                  <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="rajesh@example.com"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
-                  <input type="email" className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-rotary-blue/10 font-medium" placeholder="john@example.com" />
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Phone Number *</label>
+                  <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all" />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Areas of Interest</label>
-                <div className="grid grid-cols-2 gap-4">
-                  {['Community Service', 'Health & Medicine', 'Youth Mentorship', 'Environment'].map((interest) => (
-                    <label key={interest} className="flex items-center space-x-3 p-4 bg-slate-50 rounded-2xl cursor-pointer hover:bg-slate-100 transition-colors">
-                      <input type="checkbox" className="w-5 h-5 rounded border-slate-300 text-rotary-blue focus:ring-rotary-blue" />
-                      <span className="text-sm font-semibold text-slate-700">{interest}</span>
-                    </label>
-                  ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Occupation / Profession</label>
+                  <input type="text" name="occupation" value={form.occupation} onChange={handleChange} placeholder="e.g. Doctor, Engineer, Teacher"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Availability</label>
+                  <select name="availability" value={form.availability} onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all bg-white">
+                    <option value="">Select availability</option>
+                    <option>Weekdays only</option>
+                    <option>Weekends only</option>
+                    <option>Both weekdays & weekends</option>
+                    <option>Flexible / Project-based</option>
+                  </select>
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Why do you want to join?</label>
-                <textarea className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-rotary-blue/10 font-medium h-32 resize-none" placeholder="Share your motivation..."></textarea>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">Skills & Expertise</label>
+                <input type="text" name="skills" value={form.skills} onChange={handleChange} placeholder="e.g. Medical, Teaching, Project Management, Photography..."
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all" />
               </div>
 
-              <button className="w-full btn-primary py-5 rounded-2xl text-lg flex items-center justify-center space-x-3 shadow-xl shadow-rotary-blue/20">
-                <span>Submit Application</span>
-                <ArrowRight className="w-5 h-5" />
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">Why do you want to volunteer with us? *</label>
+                <textarea rows={4} name="motivation" value={form.motivation} onChange={handleChange}
+                  placeholder="Tell us about your motivation to serve the community..."
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all resize-none" />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-2">Previous Volunteering Experience (if any)</label>
+                <textarea rows={3} name="experience" value={form.experience} onChange={handleChange}
+                  placeholder="Share any past volunteer, NGO, or community work..."
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-rotary-blue focus:ring-2 focus:ring-rotary-blue/10 outline-none transition-all resize-none" />
+              </div>
+
+              <button
+                onClick={handleSubmit}
+                disabled={loading || !isValid}
+                className="w-full btn-primary flex items-center justify-center gap-2 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <>
+                    <Heart className="w-4 h-4 fill-white" /> Submit Application
+                  </>
+                )}
               </button>
-            </form>
+
+              <p className="text-xs text-slate-400 text-center">
+                By submitting, you agree to be contacted by our volunteer coordinator. Your information is kept private and never shared.
+              </p>
+            </div>
           </div>
         </div>
       </section>
