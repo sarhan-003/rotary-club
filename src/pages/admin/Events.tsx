@@ -8,7 +8,6 @@ import {
   Users, 
   MapPin, 
   Clock,
-  CheckCircle2,
   AlertCircle
 } from 'lucide-react';
 import { cn } from '../../utils/cn';

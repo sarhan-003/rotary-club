@@ -3,7 +3,6 @@ import DashboardLayout from '../../layouts/DashboardLayout';
 import { 
   Users, 
   Search, 
-  Filter, 
   Mail, 
   Phone, 
   Star, 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Linkedin, Mail, Award } from 'lucide-react';
+import { ExternalLink, Mail, Award } from 'lucide-react';
 
 // ─── Drop this component inside your existing About.tsx ───────────────────────
 // Import it at the top: import LeadershipSection from '../../components/ui/LeadershipSection';
@@ -134,7 +134,7 @@ const LeadershipSection: React.FC = () => {
                     <Mail className="w-3.5 h-3.5" /> Email
                   </a>
                   <button className="flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#0077B5] transition-colors px-3 py-2 rounded-lg bg-slate-50 hover:bg-blue-50">
-                    <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+                    <ExternalLink className="w-3.5 h-3.5" /> LinkedIn
                   </button>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const LeadershipSection: React.FC = () => {
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {pastPresidents.map((pp, i) => (
+            {pastPresidents.map((pp) => (
               <div key={pp.name} className="text-center p-4 rounded-2xl bg-slate-50 hover:bg-rotary-blue/5 transition-colors">
                 <div className="w-12 h-12 rounded-full bg-rotary-blue/10 flex items-center justify-center text-rotary-blue font-bold text-sm mx-auto mb-3">
                   {pp.name.split(' ').slice(-1)[0][0]}{pp.name.split(' ').slice(-2)[0][0]}

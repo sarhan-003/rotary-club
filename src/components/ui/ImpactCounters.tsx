@@ -98,7 +98,7 @@ const ImpactCounters: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
-          {stats.map((s, i) => (
+          {stats.map((s) => (
             <StatCard key={s.label} {...s} started={started} />
           ))}
         </div>
